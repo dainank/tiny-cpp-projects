@@ -1,5 +1,5 @@
 #include <iostream>
 
-auto main() -> int {
+auto main() -> int {    // int main()
     std::cout << "Hello World! \n";
 }
