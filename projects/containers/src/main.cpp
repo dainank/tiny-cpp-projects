@@ -1,9 +1,10 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 auto generate_triangle(int rows)
 {
-    std::vector<std::vector<int>> triangle{ {1} };
+    std::vector<std::vector<int>> triangle{{1}};
     for (int row = 1; row < rows; ++row)
     {
         triangle.push_back(get_next_row(triangle.back()));
@@ -35,7 +36,21 @@ void print_triangle(std::vector<int> &row)
     std::cout << std::endl;
 }
 
+template <typename T>
+std::ostream &operator<<(std::ostream &s,
+                         const std::vector<std::vector<T>> &triangle)
+{
+    for (const auto &row : triangle)
+    {
+        std::ranges::copy(row, std::ostream_iterator<T>(s, " "));
+        s << '\n';
+    }
+    return s;
+}
+
 int main()
 {
-    generate_triangle(3);
+    auto triangle = generate_triangle(3);
+    std::cout << triangle;
 }
+
