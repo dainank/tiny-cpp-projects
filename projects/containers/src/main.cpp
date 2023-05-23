@@ -37,5 +37,5 @@ void print_triangle(std::vector<int> &row)
 
 int main()
 {
-    generate_triangle();
+    generate_triangle(3);
 }
