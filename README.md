@@ -5,8 +5,8 @@
 - fmt: https://fmt.dev/latest/index.html
 
 ## Build
-`g++ -Wall --std=c++2a -o main.out main.cpp`
-`g++ -Wall --std=c++2a -o ./bin/ranges2.out ./src/ranges.cpp -I../../libraries/fmt-10.0.0/include`
+- `g++ -Wall --std=c++2a -o main.out main.cpp`
+- `g++ -Wall --std=c++2a -o ./bin/ranges2.out ./src/ranges.cpp -I../../libraries/fmt-10.0.0/include`
 
 ## Introduction
 ### Use Cases

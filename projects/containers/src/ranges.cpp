@@ -11,7 +11,7 @@ std::vector<int> get_next_row(const std::vector<int> &previous_row)
     {
         return next_row;
     }
-    for (size_t idx = 0; idx + 1 < previous_row.size(); ++idx)  // unsigned (0+) integer type scales to compiler
+    for (size_t idx = 0; idx + 1 < previous_row.size(); ++idx) // unsigned (0+) integer type scales to compiler
     {
         next_row.emplace_back(previous_row[idx] + previous_row[idx + 1]);
     }
@@ -50,17 +50,17 @@ std::ostream &operator<<(std::ostream &s,
     return s;
 }
 
-void show_vectors(std::ostream& s,
-    const std::vector<std::vector<int>>& v)
+void show_vectors(std::ostream &s,
+                  const std::vector<std::vector<int>> &v)
 {
     size_t final_row_size = v.back().size();
     std::string spaces(final_row_size * 3, ' '); // 3 spaces per row
-    for (const auto& row : v)
+    for (const auto &row : v)
     {
         s << spaces;
         if (spaces.size() > 3)
-            spaces.resize(spaces.size()-3); // each row, shrink spaces by 3
-        for (const auto& data : row)
+            spaces.resize(spaces.size() - 3); // each row, shrink spaces by 3
+        for (const auto &data : row)
         {
             s << fmt::format("{: ^{}}", data, 6); // centre each number in a block of 6
         }
@@ -68,8 +68,24 @@ void show_vectors(std::ostream& s,
     }
 }
 
+#include <cassert>
+#include <numeric>
+void check_properties(const std::vector<std::vector<int>> & triangle)
+{
+    size_t row_number = 1;
+    for (const auto & row : triangle)
+    {
+        assert(row.front() == 1);
+        assert(row.back() == 1);
+        int sum = std::accumulate(row.begin(), row.end(), 0);
+        assert(pow(2, (row_number - 1)) == (sum) );
+        assert(row.size() == row_number++);
+    }
+}
+
 int main()
 {
     auto triangle = generate_triangle(16);
+    check_properties(triangle);
     show_vectors(std::cout, triangle);
 }
