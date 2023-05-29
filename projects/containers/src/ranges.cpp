@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#define FMT_HEADER_ONLY
+#include <fmt/core.h>
 
 std::vector<int> get_next_row(const std::vector<int> &previous_row)
 {
@@ -48,8 +50,26 @@ std::ostream &operator<<(std::ostream &s,
     return s;
 }
 
+void show_vectors(std::ostream& s,
+    const std::vector<std::vector<int>>& v)
+{
+    size_t final_row_size = v.back().size();
+    std::string spaces(final_row_size * 3, ' '); // 3 spaces per row
+    for (const auto& row : v)
+    {
+        s << spaces;
+        if (spaces.size() > 3)
+            spaces.resize(spaces.size()-3); // each row, shrink spaces by 3
+        for (const auto& data : row)
+        {
+            s << fmt::format("{: ^{}}", data, 6); // centre each number in a block of 6
+        }
+        s << '\n';
+    }
+}
+
 int main()
 {
-    auto triangle = generate_triangle(3);
-    std::cout << triangle;
+    auto triangle = generate_triangle(16);
+    show_vectors(std::cout, triangle);
 }
